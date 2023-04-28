@@ -76,7 +76,7 @@ var roll = 3; // valid
 // }
 // const adding = addNumbers(20, 10);
 // console.log(adding);
-//In the below code, same above code has been used but by passing the type "Allias" as a parameter and we still get the same result.This can save us from alot of code writing.
+//In the below code, same above code has been used but by passing the type "Allias" as a parameter and we still get the same result.This can save us from alot of code writing.This allows you to avoid unnecessary repetition and manage types centrally.
 function addNumbers(number1, number2) {
     if (typeof number1 === "number" && typeof number2 === "number") {
         return number1 + number2;
@@ -87,3 +87,51 @@ function addNumbers(number1, number2) {
 }
 var adding = addNumbers(20, 10);
 console.log(adding);
+// <==================Function Return type & Void======================>
+// In typescript, function has a return type For exampl:
+function addValues(n1, n2) {
+    return n1 + n2;
+}
+// In the above code whenever the cursor comes on function then typescript shows this line of code "function addValues(n1: number, n2: number): number" .Here after the colon sign there is "number" type which comes when we try to return (n1+n2) in our function above.If i change the return into strings then the return type of fucntion will also be change.So this basically called Return Type of function.
+// A function returns a type "Void" when it doesn't return anything.For example:
+function printAge(n3) {
+    console.log("Result:" + n3);
+}
+printAge(addValues(2, 3)); //Output => Result:5
+console.log(printAge(addValues(2, 3)));
+// So here in the above function of printAge,we are not returning anything this is why typescript return type of this fucntion will be "function printAge(n3: number): void".Whenever fucntion doesn't return anything it's return type will be "Void".
+// We can explicitely defined return type to function but why do we need to do if typescript is doing it's work
+// <==================Function as a Type======================>
+// Lets take a variable with the name of "joinValues" and then store a function "addValues" from above in this variable.but when we see that type of variable "joinValues" it will be "any" (let joinValues: any).So it means anything can be stored in this variable.
+// let joinValues;
+// joinValues = addValues;
+// joinValues = 10;
+//  //error
+// console.log(joinValues(8, 8));
+// //16
+// As in the above code we are storing function in variable and then calling that variable by passing the calues and it is returning "16" which is possible result but when we stored a  number in joinValues it doesn't show error in the terminal but showed in runtime as we try to call "joinValues" as a function.So for this problem a function type can be use which will shows us the error at the time of compiling that this values cannot be store in this variable.
+var joinValues;
+joinValues = addValues;
+// joinValues = printAge; => This will show an error if we'll uncomment this.
+//undefinded
+console.log(joinValues(8, 8));
+//16
+// In the above code we passing a type function to our variable "joinValues" and as soon we did typescript remove the error from joinValues with addValues and showed an error with the values having printAge.This is because we took a variable with function type which has numbers parameters and returning a number too and that is our addValues function but not printAge.
+// <==================unknown type======================>
+// unknown type is little restricted as compared to "any" type.As in any type you can assign any value to the variable but this not the case in "unknown" type.
+var title;
+title = 2;
+title = "Mr";
+// So here it can be seen that value of "title" variabe is number and string.but when i will try to keep this variable equal to another variable with value of "string" then typescript shows an error.
+// let name: string;
+// name=title => error
+// Here the above code shows an error when title value is assigned to name variable.Although it should be equal to each other.So unknown first check the type of value which is stored in title and then it assigned to "name" variable.
+if (typeof title === "string") {
+    //   name = title;
+}
+// So here we need an extra check to assigned a value with type of unknown(title) to a value with fixed type (name).So unknown is better choice if you don't know what type you exactly going to store,it might be number or string.
+function generateError(message, code) {
+    throw { message: message, errorCode: code };
+}
+generateError("An error occured", 300);
+// Here this is a function which throws an object,you can throw whatever you want to the javascript fucnction and here we are throwing an object with two properties of "message and "error"
