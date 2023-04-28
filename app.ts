@@ -210,12 +210,6 @@ if (typeof title === "string") {
 
 // So here we need an extra check to assigned a value with type of unknown(title) to a value with fixed type (name).So unknown is better choice if you don't know what type you exactly going to store,it might be number or string.
 
-function generateError(message: string, code: number) {
-  throw { message: message, errorCode: code };
-}
+// <==================Watch-Mode======================>
 
-generateError("An error occured", 300);
-
-// {message: 'An error occured', errorCode: 300} => Output
-
-// Here this is a function which throws an object,you can throw whatever you want to the javascript fucnction and here we are throwing an object with two properties of "message and "error"
+// Till now we been running the command "tsc app.ts" to compile the typescript file and it was really headache to do it again and again after changes on editor.So there is an improvement in typescipt in which the command "tsc app.ts --watch" or "tsc app.ts -w" needs to run in compiler and after we don't need to run the command again and again and thus the "watch-mode" will  be on

@@ -1,14 +1,14 @@
+"use strict";
 // Some of the core concepts of Typescript has be discussed here
 // <=============Tuples=========>
-var persons = {
+const persons = {
     name: "Qasim",
     age: 23,
     cars: ["bmw", "ferari"],
     jeep: [3, "auto"],
 };
 console.log(persons.name);
-for (var _i = 0, _a = persons.cars; _i < _a.length; _i++) {
-    var car = _a[_i];
+for (const car of persons.cars) {
     console.log(car);
 }
 // <=============Enums=========>
@@ -22,7 +22,7 @@ var Role;
     Role[Role["USER"] = 1] = "USER";
     Role[Role["PROGRAMMER"] = 2] = "PROGRAMMER";
 })(Role || (Role = {}));
-var pers = {
+const pers = {
     name: "Qasim",
     age: 23,
     cars: ["bmw", "ferari"],
@@ -34,7 +34,7 @@ if (pers.role === Role.WRITER) {
 }
 // <=============Any=========>
 // By using any keyword we can add any type in our Array
-var drives = [2, "car"];
+let drives = [2, "car"];
 // OR
 // let drives: any[]
 // drives= [2, "car"];
@@ -52,7 +52,7 @@ var drives = [2, "car"];
 // console.log(names); => This will throw an error as type is assigned number
 // To solve this problem we can use union and for that syntex is down below:
 function unionType(n1, n2) {
-    var result;
+    let result;
     if (typeof n1 === "number" && typeof n2 === "number") {
         result = n1 + n2;
     }
@@ -61,12 +61,12 @@ function unionType(n1, n2) {
     }
     return result;
 }
-var ages = unionType(20, 12);
+const ages = unionType(20, 12);
 console.log(ages);
-var names = unionType("Qas", "Javed");
+const names = unionType("Qas", "Javed");
 console.log(names);
-var direction = "left"; // valid
-var roll = 3; // valid
+let direction = "left"; // valid
+let roll = 3; // valid
 // function addNumbers(number1: number | string, number2: number | string) {
 //   if (typeof number1 === "number" && typeof number2 === "number") {
 //     return number1 + number2;
@@ -85,7 +85,7 @@ function addNumbers(number1, number2) {
         return "Both parameters should be numbers";
     }
 }
-var adding = addNumbers(20, 10);
+const adding = addNumbers(20, 10);
 console.log(adding);
 // <==================Function Return type & Void======================>
 // In typescript, function has a return type For exampl:
@@ -110,7 +110,7 @@ console.log(printAge(addValues(2, 3)));
 // console.log(joinValues(8, 8));
 // //16
 // As in the above code we are storing function in variable and then calling that variable by passing the calues and it is returning "16" which is possible result but when we stored a  number in joinValues it doesn't show error in the terminal but showed in runtime as we try to call "joinValues" as a function.So for this problem a function type can be use which will shows us the error at the time of compiling that this values cannot be store in this variable.
-var joinValues;
+let joinValues;
 joinValues = addValues;
 // joinValues = printAge; => This will show an error if we'll uncomment this.
 //undefinded
@@ -119,7 +119,7 @@ console.log(joinValues(8, 8));
 // In the above code we passing a type function to our variable "joinValues" and as soon we did typescript remove the error from joinValues with addValues and showed an error with the values having printAge.This is because we took a variable with function type which has numbers parameters and returning a number too and that is our addValues function but not printAge.
 // <==================unknown type======================>
 // unknown type is little restricted as compared to "any" type.As in any type you can assign any value to the variable but this not the case in "unknown" type.
-var title;
+let title;
 title = 2;
 title = "Mr";
 // So here it can be seen that value of "title" variabe is number and string.but when i will try to keep this variable equal to another variable with value of "string" then typescript shows an error.
@@ -130,8 +130,5 @@ if (typeof title === "string") {
     //   name = title;
 }
 // So here we need an extra check to assigned a value with type of unknown(title) to a value with fixed type (name).So unknown is better choice if you don't know what type you exactly going to store,it might be number or string.
-function generateError(message, code) {
-    throw { message: message, errorCode: code };
-}
-generateError("An error occured", 300);
-// Here this is a function which throws an object,you can throw whatever you want to the javascript fucnction and here we are throwing an object with two properties of "message and "error"
+// <==================Watch-Mode======================>
+// Till now we been running the command "tsc app.ts" to compile the typescript file and it was really headache to do it again and again after changes on editor.So there is an improvement in typescipt in which the command "tsc app.ts --watch" or "tsc app.ts -w" needs to run in compiler and after we don't need to run the command again and again and thus the "watch-mode" will  be on
